@@ -21,30 +21,36 @@ public class ExpenseFragment extends Fragment {
 
     private ExpenseViewModel expenseViewModel;
 
-    public ExpenseFragment() {}
+    public ExpenseFragment() {} // Required empty constructor
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_expense, container, false);
 
+        // Get references to UI components
         EditText expenseName = view.findViewById(R.id.editTextExpenseName);
         EditText expenseAmount = view.findViewById(R.id.editTextExpenseAmount);
         Button saveButton = view.findViewById(R.id.buttonSaveExpense);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewExpenses);
 
+        // Set up RecyclerView with adapter
         ExpenseAdapter adapter = new ExpenseAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
+        // Set delete listener to remove expense from database when clicked
         adapter.setOnExpenseDeleteListener(expense -> {
             expenseViewModel.deleteExpense(expense);
         });
 
+        // Get ViewModel to interact with data (Room or Firestore)
         expenseViewModel = new ViewModelProvider(this).get(ExpenseViewModel.class);
 
+        // Save button logic
         saveButton.setOnClickListener(v -> {
-            
             String name = expenseName.getText().toString().trim();
             String amountStr = expenseAmount.getText().toString().trim();
 
@@ -62,6 +68,7 @@ public class ExpenseFragment extends Fragment {
             expenseAmount.setText("");
         });
 
+        // Observe changes in the data and update the list
         expenseViewModel.getAllExpenses().observe(getViewLifecycleOwner(), adapter::setExpenseList);
 
         return view;

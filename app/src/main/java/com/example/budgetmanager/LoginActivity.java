@@ -37,25 +37,36 @@ public class LoginActivity extends AppCompatActivity {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener(authResult -> {
-                    startActivity(new Intent(this, MainActivity.class));
-                    finish();
-                })
-                .addOnFailureListener(e ->
-                        Toast.makeText(this, "Login failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        if(!email.isEmpty() && !password.isEmpty()) {
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                    .addOnSuccessListener(authResult -> {
+                        startActivity(new Intent(this, MainActivity.class));
+                        finish();
+                    })
+                    .addOnFailureListener(e ->
+                            Toast.makeText(this, "Login failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        }else{
+            Toast.makeText(this, "Please Enter Email and Password!", Toast.LENGTH_SHORT).show();
+        }
+
     }
+
+
 
     private void registerUser() {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnSuccessListener(authResult -> {
-                    Toast.makeText(this, "Registered successfully", Toast.LENGTH_SHORT).show();
-                    loginUser(); // login after registration
-                })
-                .addOnFailureListener(e ->
-                        Toast.makeText(this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        if(!email.isEmpty() && !password.isEmpty()) {
+            firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnSuccessListener(authResult -> {
+                        Toast.makeText(this, "Registered successfully", Toast.LENGTH_SHORT).show();
+                        loginUser(); // login after registration
+                    })
+                    .addOnFailureListener(e ->
+                            Toast.makeText(this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        }else{
+            Toast.makeText(this, "Please Enter Email and Password!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

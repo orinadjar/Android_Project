@@ -15,9 +15,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        // If user is not logged in, redirect to LoginActivity
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startActivity(new Intent(this, LoginActivity.class));
-            finish();
+            finish(); // Close current activity to prevent returning back
         }
     }
 
@@ -26,11 +27,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize BottomNavigationView
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+
+        // Get reference to the navigation host fragment (container for fragments)
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
+
+        // Get the navigation controller from the NavHost
         NavController navController = navHostFragment.getNavController();
 
+        // Connect bottom navigation view with the navigation controller
         NavigationUI.setupWithNavController(bottomNav, navController);
     }
 }

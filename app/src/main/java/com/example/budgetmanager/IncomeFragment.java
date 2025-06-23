@@ -37,25 +37,10 @@ public class IncomeFragment extends Fragment {
         EditText incomeName = view.findViewById(R.id.editTextIncomeName);
         EditText incomeAmount = view.findViewById(R.id.editTextIncomeAmount);
         Button saveButton = view.findViewById(R.id.buttonSaveIncome);
-        Button logoutButton = view.findViewById(R.id.logoutButton);
-
-        TextView emailTextView = view.findViewById(R.id.loggedInEmailTextView);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            emailTextView.setText(user.getEmail());
-        }
 
 
         // יצירת ViewModel
         incomeViewModel = new ViewModelProvider(this).get(IncomeViewModel.class);
-
-        logoutButton.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut(); // ניתוק המשתמש
-            Intent intent = new Intent(getContext(), LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            requireActivity().finish(); // סוגר את הפעילות הנוכחית
-        });
 
 
         saveButton.setOnClickListener(v -> {

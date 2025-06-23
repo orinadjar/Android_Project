@@ -11,30 +11,34 @@
         android:id="@+id/editTextExpenseName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50px"
+        android:layout_marginTop="100px"
         android:layout_marginBottom="12dp"
         android:background="@android:drawable/edit_text"
         android:hint="Expense name"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editTextExpenseAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@android:drawable/edit_text"
         android:hint="Amount (₪)"
         android:inputType="numberDecimal"
-        android:background="@android:drawable/edit_text"
         android:padding="10dp"
-        android:layout_marginBottom="12dp" />
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/buttonSaveExpense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Expense"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#F44336"
+        android:text="Save Expense"
         android:textColor="#FFFFFF"
-        android:layout_marginBottom="16dp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewExpenses"
